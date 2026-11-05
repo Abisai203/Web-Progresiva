@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Campus Consulta</title>
+  <meta name="description" content="Consulta tu horario, materias, calificaciones y fechas importantes, incluso sin conexión.">
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0F5C58">
+  <link rel="icon" href="icons/icon-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Campus">
+
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <a class="skip" href="#contenido">Saltar al contenido</a>
+
+  <header class="topbar">
+    <div class="topbar__inner">
+      <a class="brand" href="#inicio" aria-label="Campus Consulta, ir al inicio">
+        <img src="icons/icon-192.png" alt="" width="32" height="32">
+        <span>Campus Consulta</span>
+      </a>
+
+      <span id="estado-red" class="red red--on" role="status" aria-live="polite">En línea</span>
+
+      <button id="btn-menu" class="menu-btn" aria-expanded="false" aria-controls="nav">
+        <span class="menu-btn__bars" aria-hidden="true"></span>
+        <span class="sr">Menú</span>
+      </button>
+
+      <nav id="nav" class="nav" aria-label="Principal">
+        <a href="#inicio" data-ruta="inicio">Inicio</a>
+        <a href="#horario" data-ruta="horario">Horario</a>
+        <a href="#materias" data-ruta="materias">Materias</a>
+        <a href="#calendario" data-ruta="calendario">Calendario</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido" tabindex="-1">
+
+    <!-- 1. INICIO -->
+    <section id="inicio" class="vista" aria-labelledby="t-inicio">
+      <p class="fecha-hoy" id="fecha-hoy"></p>
+      <h1 id="t-inicio">Hola, estudiante</h1>
+
+      <div class="proxima" id="proxima" aria-live="polite"></div>
+
+      <div class="cols">
+        <div>
+          <h2>Avisos</h2>
+          <ul class="lista" id="lista-avisos"></ul>
+        </div>
+        <div>
+          <h2>Próximas fechas</h2>
+          <ul class="lista" id="lista-proximas"></ul>
+          <p><a href="#calendario">Ver calendario completo</a></p>
+        </div>
+      </div>
+
+      <div id="bloque-instalar" class="instalar" hidden>
+        <div>
+          <strong>Instala la aplicación</strong>
+          <p>Ábrela desde tu pantalla de inicio y consúltala sin conexión.</p>
+        </div>
+        <button id="btn-instalar" class="btn">Instalar</button>
+      </div>
+    </section>
+
+    <!-- 2. HORARIO -->
+    <section id="horario" class="vista" aria-labelledby="t-horario" hidden>
+      <h1 id="t-horario">Horario semanal</h1>
+      <div class="tabs" role="tablist" aria-label="Días de la semana" id="tabs-dias"></div>
+      <ul class="clases" id="lista-clases"></ul>
+    </section>
+
+    <!-- 3. MATERIAS -->
+    <section id="materias" class="vista" aria-labelledby="t-materias" hidden>
+      <h1 id="t-materias">Materias y calificaciones</h1>
+      <label class="buscador">
+        <span class="sr">Buscar materia o profesor</span>
+        <input type="search" id="buscar" placeholder="Buscar materia o profesor" autocomplete="off">
+      </label>
+      <p class="promedio" id="promedio"></p>
+      <ul class="materias" id="lista-materias"></ul>
+      <p class="vacio" id="vacio-materias" hidden>No hay materias que coincidan con tu búsqueda.</p>
+    </section>
+
+    <!-- 4. CALENDARIO -->
+    <section id="calendario" class="vista" aria-labelledby="t-calendario" hidden>
+      <h1 id="t-calendario">Calendario académico</h1>
+      <div class="filtros" id="filtros" role="group" aria-label="Filtrar por tipo">
+        <button class="chip is-on" data-tipo="todos">Todos</button>
+        <button class="chip" data-tipo="examen">Exámenes</button>
+        <button class="chip" data-tipo="entrega">Entregas</button>
+        <button class="chip" data-tipo="tramite">Trámites</button>
+        <button class="chip" data-tipo="descanso">Descanso</button>
+      </div>
+      <ol class="agenda" id="lista-agenda"></ol>
+    </section>
+
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
